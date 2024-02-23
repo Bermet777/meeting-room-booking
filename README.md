@@ -1,1 +1,2 @@
-# meeting-room-booking
+# meeting-room-booking application
+
