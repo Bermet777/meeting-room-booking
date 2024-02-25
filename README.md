@@ -1,3 +1,3 @@
-# meeting-room-booking application for university
+# online meeting-room-booking application for university
 
 
