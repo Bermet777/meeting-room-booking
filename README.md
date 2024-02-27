@@ -1,4 +1,4 @@
-# Online meeting-room-booking application for university
+# Online meeting-room-booking application 
 Overview
 
 
