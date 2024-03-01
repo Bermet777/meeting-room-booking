@@ -8,6 +8,6 @@ This is an online meeting room booking application designed specifically for uni
 Objectives
 
 
-Installation
+
 
 
