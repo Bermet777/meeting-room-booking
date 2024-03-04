@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +69,18 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=======
+# Online meeting-room-booking application 
+Overview
+
+
+This is an online meeting room booking application designed specifically for university use. The application provides a streamlined and efficient way for university staff and faculty to schedule and manage meetings in various university meeting rooms. With user-friendly features and a straightforward interface, this application aims to enhance the overall scheduling experience and improve the utilization of university meeting spaces.
+
+
+
+
+
+
+
+
+>>>>>>> b0b264082c037821fbb0073c91fad4781e9c605e
