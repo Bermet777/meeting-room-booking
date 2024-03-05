@@ -1,4 +1,5 @@
-// src/components/RoomList.js
+// RoomList.js
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -7,30 +8,32 @@ const RoomList = () => {
   const [selectedDate, setSelectedDate] = useState('');
 
   useEffect(() => {
-    const fetchRooms = async () => {
+    const fetchAvailableRooms = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/rooms?date=${selectedDate}`);
+        const response = await axios.get(`http://localhost:3001/api/available-rooms?date=${selectedDate}`);
         setRooms(response.data);
       } catch (error) {
-        console.error('Error fetching rooms:', error);
+        console.error('Error fetching available rooms:', error);
       }
     };
 
-    fetchRooms();
+    if (selectedDate) {
+      fetchAvailableRooms();
+    }
   }, [selectedDate]);
 
   return (
     <div>
       <h2>Available Rooms</h2>
-      <label>
-        Select Date:
-        <input type="date" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} />
-      </label>
+      <p>Select a date to view available rooms:</p>
+      <input
+        type="date"
+        value={selectedDate}
+        onChange={(e) => setSelectedDate(e.target.value)}
+      />
       <ul>
         {rooms.map((room) => (
-          <li key={room.id}>
-            {room.name} - {room.isAvailable ? 'Available' : 'Booked'}
-          </li>
+          <li key={room.id}>{room.name}</li>
         ))}
       </ul>
     </div>

@@ -27,11 +27,12 @@ connection.connect((err) => {
 });
 
 // API endpoint to get room availability
-app.get('/api/rooms', (req, res) => {
-  const sql = 'SELECT * FROM room'; // Update table name to 'room'
-  connection.query(sql, (err, results) => {
+app.get('/api/available-rooms', (req, res) => {
+  const { date } = req.query;
+  const sql = 'SELECT * FROM room WHERE date IS NULL OR date != ?';
+  connection.query(sql, [date], (err, results) => {
     if (err) {
-      console.error('Error fetching rooms:', err);
+      console.error('Error fetching available rooms:', err);
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
       res.json(results);
