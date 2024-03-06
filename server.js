@@ -1,21 +1,19 @@
 // server.js
+
 const express = require('express');
-const bodyParser = require('body-parser');
-const mysql = require('mysql2');
 const cors = require('cors');
+const mysql = require('mysql2');
 
 const app = express();
-const port = 3001;
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 const connection = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
-  password: 'bermet',
-  database: 'rooms', 
-  port: 3306,
+  user: 'root', // replace with your MySQL username
+  password: 'bermet', // replace with your MySQL password
+  database: 'rooms', // replace with your MySQL database name
 });
 
 connection.connect((err) => {
@@ -26,7 +24,7 @@ connection.connect((err) => {
   }
 });
 
-// API endpoint to get room availability
+// API endpoint to get available rooms for a specific date
 app.get('/api/available-rooms', (req, res) => {
   const { date } = req.query;
   const sql = 'SELECT * FROM room WHERE date IS NULL OR date != ?';
@@ -43,17 +41,40 @@ app.get('/api/available-rooms', (req, res) => {
 // API endpoint to book a room
 app.post('/api/bookings', (req, res) => {
   const { room, date } = req.body;
-  const sql = 'INSERT INTO room (name, date) VALUES (?, ?)'; // Update table name to 'room'
-  connection.query(sql, [room, date], (err, results) => {
-    if (err) {
-      console.error('Error booking room:', err);
+
+  // Check if the date is a valid date string
+  if (!date || isNaN(Date.parse(date))) {
+    res.status(400).json({ error: 'Invalid date format' });
+    return;
+  }
+
+  // Check if the room is already booked on the selected date
+  const checkBookingSql = 'SELECT * FROM room WHERE name = ? AND date = ?';
+  connection.query(checkBookingSql, [room, date], (checkErr, checkResults) => {
+    if (checkErr) {
+      console.error('Error checking booking:', checkErr);
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
-      res.json({ message: 'Booking successful!' });
+      if (checkResults.length > 0) {
+        res.status(400).json({ error: 'Room already booked on this date' });
+      } else {
+        // Insert the new booking
+        const insertBookingSql = 'INSERT INTO room (name, date) VALUES (?, ?)';
+        connection.query(insertBookingSql, [room, date], (insertErr, insertResults) => {
+          if (insertErr) {
+            console.error('Error booking room:', insertErr);
+            res.status(500).json({ error: 'Internal Server Error' });
+          } else {
+            res.json({ message: 'Booking successful!' });
+          }
+        });
+      }
     }
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+const PORT = 3001;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

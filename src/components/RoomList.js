@@ -7,20 +7,32 @@ const RoomList = () => {
   const [rooms, setRooms] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');
 
-  useEffect(() => {
-    const fetchAvailableRooms = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3001/api/available-rooms?date=${selectedDate}`);
-        setRooms(response.data);
-      } catch (error) {
-        console.error('Error fetching available rooms:', error);
-      }
-    };
+  const fetchAvailableRooms = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3001/api/available-rooms?date=${selectedDate}`);
+      setRooms(response.data);
+    } catch (error) {
+      console.error('Error fetching available rooms:', error);
+    }
+  };
 
+  useEffect(() => {
     if (selectedDate) {
       fetchAvailableRooms();
     }
   }, [selectedDate]);
+
+  const handleBooking = async (room) => {
+    try {
+      const response = await axios.post('http://localhost:3001/api/bookings', {
+        room,
+        date: selectedDate,
+      });
+      console.log(response.data.message);
+    } catch (error) {
+      console.error('Error booking room:', error.response.data.error);
+    }
+  };
 
   return (
     <div>
@@ -33,7 +45,11 @@ const RoomList = () => {
       />
       <ul>
         {rooms.map((room) => (
-          <li key={room.id}>{room.name}</li>
+          <li key={room.id}>
+            {room.name}
+            {' '}
+            <button onClick={() => handleBooking(room.name)}>Book</button>
+          </li>
         ))}
       </ul>
     </div>
