@@ -13,7 +13,7 @@ const BookingForm = () => {
         room: selectedRoom,
         date: bookingDate,
       });
-      setBookingStatus('Booking successful!');
+      setBookingStatus('Booking successful');
     } catch (error) {
       console.error('Error booking room:', error);
       setBookingStatus('Error booking room. Please try again');
