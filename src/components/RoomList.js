@@ -12,7 +12,7 @@ const RoomList = () => {
       const response = await axios.get(`http://localhost:3001/api/available-rooms?date=${selectedDate}`);
       setRooms(response.data);
     } catch (error) {
-      console.error('Error fetching available rooms:', error);
+      console.error('Error fetching available rooms', error);
     }
   };
 
