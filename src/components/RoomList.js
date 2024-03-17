@@ -37,7 +37,7 @@ const RoomList = () => {
   return (
     <div>
       <h2>Available Rooms</h2>
-      <p>Select a date from calendar to view available rooms:</p>
+      <p>Select a date from calendar to view available rooms</p>
       <input
         type="date"
         value={selectedDate}
