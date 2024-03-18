@@ -43,9 +43,8 @@ app.post('/api/bookings', (req, res) => {
   const { room, date } = req.body;
 
   // Check if the date is a valid date string
-  if (!date || isNaN(Date.parse(date))) {
-    res.status(400).json({ error: 'Invalid date format' });
-    return;
+  if (!date || !moment(date, dateFormat, true).isValid()) {
+    return res.status(400).json({ error: 'Invalid date format. Use YYYY-MM-DD.' })
   }
 
   // Check if the room is already booked on the selected date
