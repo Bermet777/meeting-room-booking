@@ -64,7 +64,7 @@ app.post('/api/bookings', (req, res) => {
             console.error('Error booking room:', insertErr);
             res.status(500).json({ error: 'Internal Server Error' });
           } else {
-            res.json({ message: 'Booking successful!' });
+            res.json({ message: 'Booking successful' });
           }
         });
       }
