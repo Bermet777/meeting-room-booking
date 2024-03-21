@@ -38,7 +38,7 @@ const BookingForm = () => {
         <input type="date" value={bookingDate} onChange={(e) => setBookingDate(e.target.value)} />
       </label>
       <br />
-      <button onClick={handleBooking}>Book Now</button>
+      <button onClick={handleBooking}>Book</button>
       {bookingStatus && <p>{bookingStatus}</p>}
     </div>
   );
