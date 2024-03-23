@@ -48,7 +48,7 @@ const RoomList = () => {
           <li key={room.id}>
             {room.name}
             {' '}
-            <button onClick={() => handleBooking(room.name)}>Book room</button>
+            <button onClick={() => handleBooking(room.name)}>Book</button>
           </li>
         ))}
       </ul>
