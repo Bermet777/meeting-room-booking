@@ -7,14 +7,9 @@ const RoomList = () => {
   const [rooms, setRooms] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');
 
-  const fetchAvailableRooms = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3001/api/available-rooms?date=${selectedDate}`);
-      setRooms(response.data);
-    } catch (error) {
-      console.error('Error fetching available rooms', error);
-    }
-  };
+  useEffect(() => {
+    fetchAvailableRooms();
+  }, [fetchAvailableRooms]);
 
   useEffect(() => {
     if (selectedDate) {
@@ -57,3 +52,12 @@ const RoomList = () => {
 };
 
 export default RoomList;
+
+
+
+
+
+
+
+
+
