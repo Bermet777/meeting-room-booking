@@ -1,5 +1,3 @@
-// RoomList.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -7,9 +5,18 @@ const RoomList = () => {
   const [rooms, setRooms] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');
 
-  useEffect(() => {
-    fetchAvailableRooms();
-  }, [fetchAvailableRooms]);
+  const fetchAvailableRooms = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/api/rooms', {
+        params: {
+          date: selectedDate,
+        },
+      });
+      setRooms(response.data.rooms);
+    } catch (error) {
+      console.error('Error fetching available rooms:', error.response.data.error);
+    }
+  };
 
   useEffect(() => {
     if (selectedDate) {
@@ -52,12 +59,3 @@ const RoomList = () => {
 };
 
 export default RoomList;
-
-
-
-
-
-
-
-
-
