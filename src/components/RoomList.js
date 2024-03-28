@@ -12,9 +12,9 @@ const RoomList = () => {
           date: selectedDate,
         },
       });
-      setRooms(response.data.rooms);
+      setRooms(response.rooms);
     } catch (error) {
-      console.error('Error fetching available rooms:', error.response.data.error);
+      console.error('Error fetching available rooms:', error.response.error);
     }
   };
 
