@@ -9,7 +9,8 @@ const BookingForm = () => {
 
   const handleBooking = async () => {
     try {
-      await axios.post('http://localhost:3001/api/bookings', {
+   
+      const response = await axios.post('http://localhost:8000/api/bookings', {
         room: selectedRoom,
         date: bookingDate,
       });
@@ -19,6 +20,7 @@ const BookingForm = () => {
       setBookingStatus('Error booking room. Please try again');
     }
   };
+
 
   return (
     <div>
