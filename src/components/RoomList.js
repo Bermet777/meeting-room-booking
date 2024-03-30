@@ -7,7 +7,7 @@ const RoomList = () => {
 
   const fetchAvailableRooms = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/rooms', {
+      const response = await axios.get('http://localhost:3000/api/rooms', {
         params: {
           date: selectedDate,
         },
