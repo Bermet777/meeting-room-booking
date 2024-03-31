@@ -10,7 +10,7 @@ const BookingForm = () => {
   const handleBooking = async () => {
     try {
    
-      const response = await axios.post('http://localhost:3000/api/bookings', {
+      const response = await axios.post('http://localhost:3001/api/bookings', {
         room: selectedRoom,
         date: bookingDate,
       });
