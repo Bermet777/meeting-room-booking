@@ -24,7 +24,7 @@ connection.connect((err) => {
   }
 });
 
-// API endpoint to get available rooms for a specific date
+
 app.get('/api/available-rooms', (req, res) => {
   const { date } = req.query;
   const sql = 'SELECT * FROM room WHERE date IS NULL OR date != ?';
