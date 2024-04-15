@@ -24,6 +24,7 @@ connection.connect((err) => {
   }
 });
 
+const dateFormat = 'YYYY-MM-DD'
 
 app.get('/api/available-rooms', (req, res) => {
   const { date } = req.query;
