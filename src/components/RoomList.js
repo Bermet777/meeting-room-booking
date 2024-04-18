@@ -7,16 +7,20 @@ const RoomList = () => {
 
   const fetchAvailableRooms = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/rooms', {
+      const response = await axios.get('http://localhost:3001/api/available-rooms', {
         params: {
           date: selectedDate,
         },
       });
-      setRooms(response.rooms);
+      setRooms(response.data); // Assuming response.data contains the rooms
     } catch (error) {
-      console.error('Error fetching available rooms:', error.response.error);
+      if (error.response && error.response.data && error.response.data.error) {
+        console.error('Error fetching available rooms:', error.response.data.error);
+      } else {
+        console.error('Error fetching available rooms:', error);
+      }
     }
-  };
+  }
 
   useEffect(() => {
     if (selectedDate) {
@@ -32,9 +36,13 @@ const RoomList = () => {
       });
       console.log(response.data.message);
     } catch (error) {
-      console.error('Error booking room:', error.response.data.error);
+      if (error.response && error.response.data && error.response.data.error) {
+        console.error('Error booking room:', error.response.data.error);
+      } else {
+        console.error('Error booking room:', error);
+      }
     }
-  };
+  }
 
   return (
     <div>
