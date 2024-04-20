@@ -53,7 +53,8 @@ app.post('/api/bookings', (req, res) => {
   connection.query(checkBookingSql, [room, date], (checkErr, checkResults) => {
     if (checkErr) {
       console.error('Error checking booking:', checkErr);
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ error: 'Database error when checking room availability' });
+       
     } else {
       if (checkResults.length > 0) {
         res.status(400).json({ error: 'Room already booked on this date' });
