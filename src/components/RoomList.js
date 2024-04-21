@@ -4,6 +4,7 @@ import axios from 'axios';
 const RoomList = () => {
   const [rooms, setRooms] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');
+  const [error, setError] = useState('');
 
   const fetchAvailableRooms = async () => {
     try {
@@ -34,13 +35,14 @@ const RoomList = () => {
         room,
         date: selectedDate,
       });
-      console.log(response.data.message);
+      setBookingStatus(response.data.message);
+      setError(''); // Clear any previous errors
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.error) {
-        console.error('Error booking room:', error.response.data.error);
-      } else {
-        console.error('Error booking room:', error);
-      }
+      setBookingStatus('');
+      setError(
+        error.response?.data?.error || 'An error occurred while booking the room.'
+      )
+    }
     }
   }
 
@@ -53,6 +55,7 @@ const RoomList = () => {
         value={selectedDate}
         onChange={(e) => setSelectedDate(e.target.value)}
       />
+      {error && <p style={{ color: 'red' }}>{error}</p>} {/* Error message here */}
       <ul>
         {rooms.map((room) => (
           <li key={room.id}>
