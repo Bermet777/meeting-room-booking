@@ -36,14 +36,14 @@ const RoomList = () => {
         date: selectedDate,
       });
       setBookingStatus(response.data.message);
-      setError(''); // Clear any previous errors
+      setError(''); 
     } catch (error) {
       setBookingStatus('');
       setError(
         error.response?.data?.error || 'An error occurred while booking the room.'
       )
     }
-    }
+    
   }
 
   return (
@@ -55,7 +55,7 @@ const RoomList = () => {
         value={selectedDate}
         onChange={(e) => setSelectedDate(e.target.value)}
       />
-      {error && <p style={{ color: 'red' }}>{error}</p>} {/* Error message here */}
+      {error && <p style={{ color: 'red' }}>{error}</p>} {"Error"}
       <ul>
         {rooms.map((room) => (
           <li key={room.id}>
