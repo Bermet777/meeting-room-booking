@@ -5,23 +5,26 @@ const RoomList = () => {
   const [rooms, setRooms] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');
   const [error, setError] = useState('');
+  const [bookingStatus, setBookingStatus] = useState('');
 
   const fetchAvailableRooms = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/available-rooms', {
+      const response = await axios.get('/api/available-rooms', {
         params: {
           date: selectedDate,
         },
       });
       setRooms(response.data);
-    } catch (error) {
-      if (error.response && error.response.data && error.response.data.error) {
-        console.error('Error fetching available rooms:', error.response.data.error);
-      } else {
-        console.error('Error fetching available rooms:', error);
-      }
+    } catch (err) {
+      handleError(err);
     }
-  }
+  };
+
+  const handleError = (err) => {
+    const errorMessage = err.response?.data?.error || 'An error occurred.';
+    setError(errorMessage);
+    console.error('Error:', errorMessage);
+  };
 
   useEffect(() => {
     if (selectedDate) {
@@ -29,39 +32,34 @@ const RoomList = () => {
     }
   }, [selectedDate]);
 
-  const handleBooking = async (room) => {
+  const bookRoom = async (room) => {
     try {
-      const response = await axios.post('http://localhost:3001/api/bookings', {
+      const response = await axios.post('/api/bookings', {
         room,
         date: selectedDate,
       });
       setBookingStatus(response.data.message);
-      setError(''); 
-    } catch (error) {
+      setError('');
+    } catch (err) {
       setBookingStatus('');
-      setError(
-        error.response?.data?.error || 'An error occurred while booking the room.'
-      )
+      handleError(err);
     }
-    
-  }
+  };
 
   return (
     <div>
       <h2>Available Rooms</h2>
-      <p>Select a date from calendar to view available rooms</p>
+      <p>Select a date to view available rooms:</p>
       <input
         type="date"
         value={selectedDate}
         onChange={(e) => setSelectedDate(e.target.value)}
       />
-      {error && <p style={{ color: 'red' }}>{error}</p>} {"Error"}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <ul>
         {rooms.map((room) => (
           <li key={room.id}>
-            {room.name}
-            {' '}
-            <button onClick={() => handleBooking(room.name)}>Book room</button>
+            {room.name} <button onClick={() => bookRoom(room.name)}>Book</button>
           </li>
         ))}
       </ul>
