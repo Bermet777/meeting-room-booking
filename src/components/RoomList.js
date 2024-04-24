@@ -49,7 +49,7 @@ const RoomList = () => {
   return (
     <div>
       <h2>Available Rooms</h2>
-      <p>Select a date to view available rooms:</p>
+      <p>Select a date to view available room:</p>
       <input
         type="date"
         value={selectedDate}
