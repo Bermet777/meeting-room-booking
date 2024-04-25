@@ -59,7 +59,7 @@ const RoomList = () => {
       <ul>
         {rooms.map((room) => (
           <li key={room.id}>
-            {room.name} <button onClick={() => bookRoom(room.name)}>Book</button>
+            {room.name} <button onClick={() => bookRoom(room.name)}>Book a room</button>
           </li>
         ))}
       </ul>
