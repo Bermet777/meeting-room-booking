@@ -28,7 +28,7 @@ const dateFormat = 'YYYY-MM-DD'
 
 app.get('/api/available-rooms', (req, res) => {
   const { date } = req.query;
-  const sql = 'SELECT * FROM room WHERE date IS NULL OR date != ?';
+  const sql = 'SELECT * FROM room WHERE name NOT IN (SELECT name FROM room WHERE date = ?)';
   connection.query(sql, [date], (err, results) => {
     if (err) {
       console.error('Error fetching available rooms:', err);
